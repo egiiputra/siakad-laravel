@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pendaftaran extends Model
 {
@@ -34,7 +35,7 @@ class Pendaftaran extends Model
         'rw',
         'kode_pos',
         'id_jenis_tinggal',
-        'id_alat_transportasi',
+        'id_transportasi',
         'telepon',
         'no_ponsel',
         'penerima_kps',
@@ -44,7 +45,7 @@ class Pendaftaran extends Model
         'tanggal_lahir_ayah',
         'pendidikan_ayah',
         'pekerjaan_ayah',
-        'penghasilan_ayah',
+        'id_penghasilan_ayah',
         'nik_ibu',
         'tanggal_lahir_ibu',
         'id_pengahasilan_ibu',
@@ -52,7 +53,7 @@ class Pendaftaran extends Model
         'tangga_lahir_wali',
         'pendidikan_wali',
         'pekerjaan_wali',
-        'penghasilan_wali',
+        'id_penghasilan_wali',
         'id_jenis_pendaftaran',
         'id_jalur_pendaftaran',
         'id_pembiayaan',
@@ -74,4 +75,59 @@ class Pendaftaran extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'waktu_pendaftaran';
     protected $updatedField  = 'updated_at';
+
+    public function prodi(): BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi');
+    }
+
+    public function jenjang(): BelongsTo
+    {
+        return $this->belongsTo(JenjangPendidikan::class, 'id_jenjang');
+    }
+
+    public function agama(): BelongsTo
+    {
+        return $this->belongsTo(Agama::class, 'id_agama');
+    }
+
+    public function jenisTinggal(): BelongsTo
+    {
+        return $this->belongsTo(JenisTinggal::class, 'id_jenis_tinggal');
+    }
+
+    public function transportasi(): BelongsTo
+    {
+        return $this->belongsTo(Transportasi::class, 'id_transportasi');
+    }
+
+    public function penghasilanIbu(): BelongsTo
+    {
+        return $this->belongsTo(Penghasilan::class, 'id_penghasilan_ibu');
+    }
+
+    public function penghasilanAyah(): BelongsTo
+    {
+        return $this->belongsTo(Penghasilan::class, 'id_penghasilan_ayah');
+    }
+
+    public function penghasilanWali(): BelongsTo
+    {
+        return $this->belongsTo(Penghasilan::class, 'id_penghasilan_wali');
+    }
+
+    public function jenisPendaftaran(): BelongsTo
+    {
+        return $this->belongsTo(JenisPendaftaran::class, 'id_jenis_pendaftaran');
+    }
+
+    public function jalurPendaftaran(): BelongsTo
+    {
+        return $this->belongsTo(JalurPendaftaran::class, 'id_jalur_pendaftaran');
+    }
+
+    public function pembiayaan(): BelongsTo
+    {
+        return $this->belongsTo(JalurPendaftaran::class, 'id_pembiayaan');
+    }
 }
