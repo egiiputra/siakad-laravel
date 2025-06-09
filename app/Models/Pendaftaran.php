@@ -19,11 +19,9 @@ class Pendaftaran extends Model
         'gelombang',
         'periode_pendaftaran',
         'id_prodi',
-        'id_jenjang',
+        'id_jenjang_pendidikan',
         'tempat_lahir',
         'jenis_kelamin',
-        'nama_ibu',
-        'tanggal_lahir_ibu',
         'id_agama',
         'nisn',
         'npwp',
@@ -37,23 +35,8 @@ class Pendaftaran extends Model
         'id_jenis_tinggal',
         'id_transportasi',
         'telepon',
-        'no_ponsel',
         'penerima_kps',
         'no_kps',
-        'nik_ayah',
-        'nama_ayah',
-        'tanggal_lahir_ayah',
-        'pendidikan_ayah',
-        'pekerjaan_ayah',
-        'id_penghasilan_ayah',
-        'nik_ibu',
-        'tanggal_lahir_ibu',
-        'id_pengahasilan_ibu',
-        'nama_wali',
-        'tangga_lahir_wali',
-        'pendidikan_wali',
-        'pekerjaan_wali',
-        'id_penghasilan_wali',
         'id_jenis_pendaftaran',
         'id_jalur_pendaftaran',
         'id_pembiayaan',
@@ -71,6 +54,24 @@ class Pendaftaran extends Model
         'skor_ujian',
         'asal_sekolah',
         'referensi_dari',
+        'nama_ibu',
+        'nama_ayah',
+        'nama_wali',
+        'tanggal_lahir_ibu',
+        'tanggal_lahir_ayah',
+        'tangga_lahir_wali',
+        'nik_ibu',
+        'nik_ayah',
+        'nik_wali',
+        'id_pendidikan_ibu',
+        'id_pendidikan_ayah',
+        'id_pendidikan_wali',
+        'id_penghasilan_ibu',
+        'id_penghasilan_ayah',
+        'id_penghasilan_wali',
+        'id_pekerjaan_ibu',
+        'id_pekerjaan_ayah',
+        'id_pekerjaan_wali',
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'waktu_pendaftaran';
@@ -114,6 +115,20 @@ class Pendaftaran extends Model
     public function penghasilanWali(): BelongsTo
     {
         return $this->belongsTo(Penghasilan::class, 'id_penghasilan_wali');
+    }
+
+    public function pendidikanIbu(): BelongsTo
+    {
+        return $this->belongsTo(Pendidikan::class, 'id_pendidikan_ibu');
+    }
+
+    public function pendidikanAyah(): BelongsTo
+    {
+        return $this->belongsTo(Pendidikan::class, 'id_pendidikan_ayah');
+    }
+    public function pendidikanWali(): BelongsTo
+    {
+        return $this->belongsTo(Pendidikan::class, 'id_pendidikan_wali');
     }
 
     public function jenisPendaftaran(): BelongsTo
