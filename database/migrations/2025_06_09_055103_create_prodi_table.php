@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('program', length: 40);
             $table->string('nipy_kaprodi', length: 30);
             $table->string('akreditasi', length: 10);
-            $table->string('no_kaprodi', length: 50);
+            $table->string('no_akreditasi', length: 50);
             $table->date('tgl_akreditasi');
             $table->tinyInteger('status');
 
