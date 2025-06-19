@@ -126,9 +126,9 @@
                 </div>
 
                 <div class="row mb-2">
-                    <label for="tgl_daftar" class="col-form-label col-sm-2">Tanggal Pendaftaran <span style="color:#F00">*</span></label>
+                    <label for="tanggalDaftar" class="col-form-label col-sm-2">Tanggal Pendaftaran <span style="color:#F00">*</span></label>
                     <div class="col-lg-2">
-                        <input id="tgl_daftar" class="form-control default-date-picker" name="tTglDaftar" type="date" placeholder="Tgl. Daftar" autocomplete="off" tabindex="3"/>
+                        <input id="tanggalDaftar" class="form-control default-date-picker" name="tanggalDaftar" type="date" placeholder="Tgl. Daftar" autocomplete="off" tabindex="3"/>
                     </div>
 
                     <label for="smt" class="col-form-label col-sm-2">Periode <span style="color:#F00">*</span></label>
@@ -341,11 +341,11 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <label for="tempatLahir" class="col-form-label col-sm-2">Tanggal Lahir <span style="color:#F00">*</span></label>
+                    <label for="tempatLahir" class="col-form-label col-sm-2">Tempat Lahir <span style="color:#F00">*</span></label>
                     <div class="col-lg-4">
                         <input id="tempatLahir" class="form-control" name="tempatLahir" type="text" placeholder="Masukkan tempat lahir" autocomplete="off" tabindex="3"/>
                     </div>
-                    <label for="tanggalLahir" class="col-form-label col-lg-2 col-sm-2">Tempat Lahir <span style="color:#F00">*</span></label>
+                    <label for="tanggalLahir" class="col-form-label col-lg-2 col-sm-2">Tanggal Lahir <span style="color:#F00">*</span></label>
                     <div class="col-lg-2">
                         <input id="tanggalLahir" class="form-control default-date-picker" name="tanggalLahir" type="date" placeholder="Tgl. Daftar" autocomplete="off" tabindex="3"/>
                     </div>
