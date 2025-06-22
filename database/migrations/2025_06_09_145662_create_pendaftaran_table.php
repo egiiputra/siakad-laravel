@@ -53,7 +53,7 @@ return new class extends Migration
             $table->timestamps(precision: 0);
             $table->unsignedSmallInteger('sks_diakui');
             $table->boolean('selesai_proses');
-            $table->tinyText('sca_ijazah');
+            $table->tinyText('scan_ijazah');
             $table->tinyText('scan_identitas');
             $table->tinyText('scan_kk');
             $table->tinyText('foto');
