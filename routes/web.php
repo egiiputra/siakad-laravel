@@ -10,5 +10,8 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login']);
 
 Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
+Route::get('/pendaftaran/add', [PendaftaranController::class, 'create']);
+Route::post('/pendaftaran/add', [PendaftaranController::class, 'store']);
