@@ -128,45 +128,34 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Periode/Gelombang</th>
-                    <th>Referensi</th>
                     <th>#</th>
-                    <th>Info</th>
                     <th>Ujian</th>
                     <th>Wawancara</th>
                     <th>Email</th>
                     <th>Tagihan</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($pendaftaran)) : ?>
-                    <?php $no = 1; ?>
-                    <?php foreach ($pendaftaran as $item) : ?>
+                @if (!empty($pendaftaran))
+                    @for ($i = 0; $i < count($pendaftaran); $i++)
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $item['nipd'] }}</td>
-                            <td><?= htmlspecialchars($mhs['prodi']) ?></td>
-                            <td><?= htmlspecialchars($mhs['nama']) ?></td>
-                            <td><?= htmlspecialchars($mhs['alamat']) ?></td>
-                            <td><?= htmlspecialchars($mhs['periode']) ?></td>
-                            <td><?= htmlspecialchars($mhs['referensi']) ?></td>
+                            <td><?= $i + 1 ?></td>
+                            <td><?= $pendaftaran[$i]->nipd ?></td>
+                            <td><?= $pendaftaran[$i]->prodi ?></td>
+                            <td><?= $pendaftaran[$i]->nama ?></td>
+                            <td><?= $pendaftaran[$i]->kota ?></td>
+                            <td><?= $pendaftaran[$i]->periode . htmlspecialchars($pendaftaran[$i]->gelombang) ?></td>
                             <td>#</td>
-                            <td>Info</td>
-                            <td><?= htmlspecialchars($mhs['status_ujian']) ?></td>
-                            <td><?= htmlspecialchars($mhs['status_wawancara']) ?></td>
-                            <td><?= htmlspecialchars($mhs['email']) ?></td>
-                            <td><?= number_format($mhs['tagihan'], 2) ?></td>
-                            <td>
-                                <form method="post" action="/pendaftaran/delete/<?= $mhs['id'] ?>" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                    <?= csrf_field() ?>
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
-                            </td>
+                            <td><?=($pendaftaran[$i]->sudah_ujian) ?></td>
+                            <td><?=($pendaftaran[$i]->sudah_wawancara) ?></td>
+                            <td><?=($pendaftaran[$i]->email) ?></td>
+                            {{-- <td><?= number_format($mhs['tagihan'], 2) ?></td> --}}
                         </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
+                    @endfor
+                @else
                     <tr><td colspan="14" class="text-center">Data tidak ditemukan</td></tr>
-                <?php endif; ?>
+                @endif
+
             </tbody>
         </table>
     </div>
