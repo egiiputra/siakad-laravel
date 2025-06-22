@@ -20,8 +20,11 @@ class PendaftaranController extends Controller
      */
     public function index(Request $request)
     {
+        $pendaftaran = DB::select('SELECT p.nipd AS nipd, prodi.nama AS prodi, p.nama AS nama, p.kota AS kota, p.periode_pendaftaran AS periode, p.gelombang AS gelombang, p.sudah_ujian AS sudah_ujian, p.sudah_wawancara AS sudah_wawancara, p.email AS email FROM pendaftaran p INNER JOIN prodi ON p.id_prodi=prodi.id');
+
+        // var_dump($pendaftaran[0]);
+        // die();
         // return $request->input('tahun');
-        $data = [];
 
         // Get filter inputs
         // $prodi = $request->input('prodi');
@@ -52,7 +55,7 @@ class PendaftaranController extends Controller
 
         // $data['mahasiswa'] = $builder->orderBy('id', 'DESC')->findAll();
 
-        return view('pendaftaran/index', $data);
+        return view('pendaftaran/index', ['pendaftaran' => $pendaftaran]);
     }
 
     /**
@@ -69,7 +72,12 @@ class PendaftaranController extends Controller
             'jalurPendaftaranOpts' => DB::select('SELECT * FROM jalur_pendaftaran'),
             'pembiayaanOpts' => DB::select('SELECT * FROM pembiayaan'),
             'agamaOpts' => DB::select('SELECT * FROM agama'),
-            'kewarganegaraanOpts' => DB::select('SELECT * FROM negara')
+            'kewarganegaraanOpts' => DB::select('SELECT * FROM negara'),
+            'jenisTinggalOpts' => DB::select('SELECT * FROM jenis_tinggal'),
+            'transportasiOpts' => DB::select('SELECT * FROM transportasi'),
+            'pendidikanOpts' => DB::select('SELECT * FROM pendidikan'),
+            'pekerjaanOpts' => DB::select('SELECT * FROM pekerjaan'),
+            'penghasilanOpts' => DB::select('SELECT * FROM penghasilan')
         ]);
     }
 
@@ -78,8 +86,92 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi
+        // Handle file upload simpan ke direktori dengan nama sesuai nama db
+
+        $tanggal = explode("-", $request->input('tanggalDaftar'));
+
+        // Get nomor urut terakhir
+        $total_registration = DB::scalar("SELECT COUNT(*) FROM pendaftaran WHERE tanggal_pendaftaran = " . $request->input('tanggalDaftar'));
+
+        $nipd = str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT)
+            . "/PMB/$tanggal[1]/$tanggal[0]";
+
+        $result = DB::insert('INSERT INTO pendaftaran
+            VALUES (NULL,' 
+            . implode(',', array_fill(0, 31, '?')) 
+            . ', NOW(), '
+            . implode(',', array_fill(0, 34, '?'))
+            . ')'
+        , [
+            $nipd,
+            $request->input('noKtp'),
+            $request->input('nama'),
+            $request->input('email'),
+            $request->input('angkatan'),
+            $request->input('kelas'),
+            $request->input('gelombang'),
+            $request->input('periode'),
+            $request->input('prodi'),
+            $request->input('jenjangPendidikan'),
+            $request->input('tempatLahir'),
+            $request->input('jenisKelamin'),
+            $request->input('agama'),
+            $request->input('nisn'),
+            $request->input('npwp'),
+            $request->input('kewarganegaraan'),
+            $request->input('jalan'),
+            $request->input('kota'),
+            $request->input('kecamatan'),
+            $request->input('rt'),
+            $request->input('rw'),
+            $request->input('kodePos'),
+            $request->input('jenisTinggal'),
+            $request->input('transportasi'),
+            $request->input('telepon'),
+            $request->input('terimaKps'),
+            $request->input('NoKps'),
+            $request->input('jenisPendaftaran'),
+            $request->input('jalurPendaftaran'),
+            $request->input('pembiayaan'),
+            null,
+            $request->input('sks'),
+            0,
+            str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT) . "-PMB-$tanggal[1]-$tanggal[0]_ijazah.pdf",
+            str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT) . "-PMB-$tanggal[1]-$tanggal[0]_identitas.pdf",
+            str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT) . "-PMB-$tanggal[1]-$tanggal[0]_kk.pdf",
+            str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT) . "-PMB-$tanggal[1]-$tanggal[0]_foto.jpg",
+            str_pad(strval($total_registration + 1), 4, "0", STR_PAD_LEFT) . "-PMB-$tanggal[1]-$tanggal[0]_buktibayar.jpg",
+            "2025-06-15 15:30:00",
+            "2025-06-15 16:00:00",
+            0,
+            0,
+            0,
+            $request->input('asalSekolah'),
+            '',
+            $request->input('namaIbu'),
+            $request->input('namaAyah'),
+            $request->input('namaWali'),
+            $request->input('tanggalLahirIbu'),
+            $request->input('tanggalLahirAyah'),
+            $request->input('tanggalLahirWali'),
+            $request->input('nikIbu'),
+            $request->input('nikAyah'),
+            $request->input('nikWali'),
+            $request->input('pendidikanIbu'),
+            $request->input('pendidikanAyah'),
+            $request->input('pendidikanWali'),
+            $request->input('penghasilanIbu'),
+            $request->input('penghasilanAyah'),
+            $request->input('penghasilanWali'),
+            $request->input('pekerjaanIbu'),
+            $request->input('pekerjaanAyah'),
+            $request->input('pekerjaanWali'),
+            $request->input('periode'),
+            $request->input('tanggalDaftar'),
+        ]);
         // return 'hello world';
-        return json_encode($request);
+        return back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
