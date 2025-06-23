@@ -86,8 +86,10 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi
-        // Handle file upload simpan ke direktori dengan nama sesuai nama db
+        // TODO: Validasi input
+        // TODO: validasi file upload
+
+        // TODO: Handle file upload simpan ke direktori dengan nama sesuai nama db
 
         $tanggal = explode("-", $request->input('tanggalDaftar'));
 
