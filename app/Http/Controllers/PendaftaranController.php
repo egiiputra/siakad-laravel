@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class PendaftaranController extends Controller
 {
     /**
@@ -20,7 +22,14 @@ class PendaftaranController extends Controller
      */
     public function index(Request $request)
     {
-        $pendaftaran = DB::select('SELECT p.nipd AS nipd, prodi.nama AS prodi, p.nama AS nama, p.kota AS kota, p.periode_pendaftaran AS periode, p.gelombang AS gelombang, p.sudah_ujian AS sudah_ujian, p.sudah_wawancara AS sudah_wawancara, p.email AS email FROM pendaftaran p INNER JOIN prodi ON p.id_prodi=prodi.id');
+        $page = intval($request->query('page'));
+        if ($page <= 0) {
+            $offset = 0;
+        } else {
+            $offset = ($page - 1) * 20;
+        }
+        $pageCount = ceil(DB::scalar('SELECT COUNT(*) FROM pendaftaran p INNER JOIN prodi ON p.id_prodi=prodi.id') / 20);
+        $pendaftaran = DB::select('SELECT p.nipd AS nipd, prodi.nama AS prodi, p.nama AS nama, p.kota AS kota, p.periode_pendaftaran AS periode, p.gelombang AS gelombang, p.sudah_ujian AS sudah_ujian, p.sudah_wawancara AS sudah_wawancara, p.email AS email FROM pendaftaran p INNER JOIN prodi ON p.id_prodi=prodi.id LIMIT 20 OFFSET ' . $offset);
 
         // var_dump($pendaftaran[0]);
         // die();
@@ -54,8 +63,27 @@ class PendaftaranController extends Controller
         // }
 
         // $data['mahasiswa'] = $builder->orderBy('id', 'DESC')->findAll();
+        if ($request->header('X-refresh') == 'true') {
+            // return view('pendaftaran/components/pagination', ['pageCount' => $pageCount]);
+            // var_dump(view('pendaftaran/components/table-body', [
+            //     'pendaftaran' => $pendaftaran,
+            // ])->render());
+            // die();
 
-        return view('pendaftaran/index', ['pendaftaran' => $pendaftaran]);
+            return response()->json([
+                'content' => view('pendaftaran/components/table-body', [
+                    'pendaftaran' => $pendaftaran,
+                ])->render(),
+                'pagination' => view('pendaftaran/components/pagination', [
+                    'pageCount' => $pageCount,
+                ])->render(),
+            ]);
+        }
+
+        return view('pendaftaran/index', [
+            'pendaftaran' => $pendaftaran,
+            'pageCount' => 20,
+        ]);
     }
 
     /**

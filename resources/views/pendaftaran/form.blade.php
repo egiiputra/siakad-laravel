@@ -1,5 +1,9 @@
 @extends('../layouts.dashboard')
 
+@section('head')
+  <title>{{ env('APP_NAME') }} - Tambah data pendaftar</title>
+@endsection
+
 @section('content')
   <div class="d-flex flex-row justify-content-between align-items-center">
       
@@ -9,14 +13,14 @@
       <h2>Form pendaftaran</h2>
       @if (isset($nipd))
         <div class="row mb-2">
-          <label for="nipd" class="col-sm-2 col-form-label">NIPD</label>
+          <label for="nipd" class="col-sm-2 col-form-label fs-6">NIPD</label>
           <div class="col-lg-4">
             <input class="form-control" id="nipd" name="tNIPD" value="{{ $nipd }}" maxlength="50" type="text" placeholder="NIPD" disabled/>
           </div>
         </div>
       @endif
       <div class="row mb-2">
-        <label for="angkatan" class="col-sm-2 col-form-label">Tahun Angkatan <span style="color:#F00">*</span></label>
+        <label for="angkatan" class="col-sm-2 col-form-label fs-6">Tahun Angkatan <span style="color:#F00">*</span></label>
         <div class="col-lg-2">
           <select id="angkatan" class="form-control" name="angkatan" autofocus tabindex="1" required>
           <option value="">-Tahun</option>
