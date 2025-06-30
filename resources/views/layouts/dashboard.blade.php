@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>{{ env('APP_NAME') }} - @yield('title')</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,6 +15,8 @@
 
       }
     </style>
+    @section('head')
+    @show
   </head>
   <body style="height: 100vh; width: 100vw">
     <div class="d-flex flex-column flex-shrink-0 fixed-top p-3 bg-light" style="width: 240px; height: 100%">
