@@ -12,7 +12,6 @@
       .content {
         width: calc(100% - 280px);
         margin-left: 240px;
-
       }
     </style>
     @section('head')

@@ -1,16 +1,16 @@
 @if (!empty($pendaftaran))
   @for ($i = 0; $i < count($pendaftaran); $i++)
     <tr>
-      <td><?= ((intval($_GET['page']) - 1) * 20) +$i + 1 ?></td>
-      <td><?= $pendaftaran[$i]->nipd ?></td>
-      <td><?= $pendaftaran[$i]->prodi ?></td>
-      <td><?= $pendaftaran[$i]->nama ?></td>
-      <td><?= $pendaftaran[$i]->kota ?></td>
-      <td><?= $pendaftaran[$i]->periode . htmlspecialchars($pendaftaran[$i]->gelombang) ?></td>
-      <td>#</td>
-      <td><?=($pendaftaran[$i]->sudah_ujian) ?></td>
-      <td><?=($pendaftaran[$i]->sudah_wawancara) ?></td>
-      <td><?=($pendaftaran[$i]->email) ?></td>
+      <td><span><?= ((intval($_GET['page']) - 1) * 20) +$i + 1 ?></span></td>
+      <td><span><?= $pendaftaran[$i]->nipd ?></span></td>
+      <td><span><?= $pendaftaran[$i]->prodi ?></span></td>
+      <td><span><?= $pendaftaran[$i]->nama ?></span></td>
+      <td><span><?= $pendaftaran[$i]->kota ?></span></td>
+      <td><span><?= $pendaftaran[$i]->periode . htmlspecialchars($pendaftaran[$i]->gelombang) ?></span></td>
+      <td><span>#</span></td>
+      <td><span><?=($pendaftaran[$i]->sudah_ujian) ?></span></td>
+      <td><span><?=($pendaftaran[$i]->sudah_wawancara) ?></span></td>
+      <td><span><?=($pendaftaran[$i]->email) ?></span></td>
       {{-- <td><?= number_format($mhs['tagihan'], 2) ?></td> --}}
     </tr>
   @endfor

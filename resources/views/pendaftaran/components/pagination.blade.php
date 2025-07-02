@@ -14,7 +14,7 @@
 
     $end = $current + 7;
     if ($end > $pageCount) {
-      $end = $page;
+      $end = $pageCount;
     }
   @endphp
   @if ($current > 1)

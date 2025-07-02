@@ -1,5 +1,25 @@
 @extends('../layouts.dashboard')
 
+@section('head')
+<style>
+  tbody.loading td span {
+    background-color: #d1d1d1;
+    color: transparent;
+    animation: loading-skeleton 1s infinite alternate;
+  }
+  @keyframes loading-skeleton {
+    from {
+      opacity: .1;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+}
+</style>
+@endsection
+
 @section('content')
   <div class="d-flex flex-row justify-content-between align-items-center">
     <h2>Pendaftaran Mahasiswa</h2>
@@ -56,7 +76,7 @@
       <a href="/pendaftaran" class="btn btn-secondary">Reset</a>
     </div>
   </form>
-  <table class="table table-bordered table-striped table-hover">
+  <table class="table table-bordered table-striped table-hover table-small">
     <thead>
       <tr>
         <th>No</th>
@@ -82,33 +102,36 @@
   </nav>
 
   <script>
+    const tableBody = document.getElementById('table-body');
+    const pagination = document.getElementById('pagination');
+
     function loadPage(page) {
-      const tableBody = document.getElementById('table-body');
-      const pagination = document.getElementById('pagination');
-      
+      tableBody.classList.add('loading')
+
       // document.querySelectorAll('.page-link').forEach(element => {
       //   element.addEventListener('click', function() {
-          const url = new URL(window.location.href);
-          // url.searchParams.set('page', this.innerText);
-          // url.searchParams.set('page', this.innerText);
-          url.searchParams.set('page', page);
 
-          fetch(url.href, {
-            headers: {
-              "X-refresh": 'true',
-            }
-          })
-            .then(resp => resp.json())
-            .then(data => {
-              // console.log(JSON.stringify(body));
-              console.log(data);
-              tableBody.innerHTML = data.content;
-              pagination.innerHTML = data.pagination;
+      const url = new URL(window.location.href);
+      // url.searchParams.set('page', this.innerText);
+      // url.searchParams.set('page', this.innerText);
+      url.searchParams.set('page', page);
 
-            })
-          console.log(this);
-          console.log(this.innerText);
-          window.history.pushState({}, '', url);
+      fetch(url.href, {
+        headers: {
+          "X-refresh": 'true',
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          // console.log(JSON.stringify(body));
+          console.log(data);
+          tableBody.innerHTML = data.content;
+          tableBody.classList.remove('loading');
+          pagination.innerHTML = data.pagination;
+        })
+      console.log(this);
+      console.log(this.innerText);
+      window.history.pushState({}, '', url);
       //   })
       // });
     }
