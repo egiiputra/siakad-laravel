@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('akun', function (Blueprint $table) {
             $table->id();
+            $table->string('username', length: 20)->unique();
+            $table->string('password', length: 100);
+            $table->string('level', length: 10);
+            $table->char('id_prodi', length: 5)->nullable();
+
             $table->timestamps();
+
+            $table->foreign('id_prodi')->references('id')->on('prodi');
         });
     }
 
