@@ -1,6 +1,6 @@
 <ul class="pagination">
   @php
-    $current = intval($_GET['page']);
+    $current = intval($_GET['page'] ?? '1');
     if ($current <= 0) {
       $current = 1;
     } elseif ($current > $pageCount) {
@@ -27,7 +27,7 @@
   @for ($i = $start; $i <= $end; $i++)
     <li class="page-item {{ ($i == $current) ? 'active':'' }}"><a class="page-link" onclick="loadPage({{$i}})" href="#">{{ $i }}</a></li>
   @endfor
-  <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+  <li class="page-item disabled"><a class="page-link" href="">...</a></li>
   @if ($current < $end)
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">

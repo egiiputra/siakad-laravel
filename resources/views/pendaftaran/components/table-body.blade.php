@@ -1,7 +1,11 @@
 @if (!empty($pendaftaran))
+  @php
+  $page = (intval($_GET['page'] ?? '1'));
+      
+  @endphp
   @for ($i = 0; $i < count($pendaftaran); $i++)
     <tr>
-      <td><span><?= ((intval($_GET['page']) - 1) * 20) +$i + 1 ?></span></td>
+      <td><span><?= (($page - 1) * 20) +$i + 1 ?></span></td>
       <td><span><?= $pendaftaran[$i]->nipd ?></span></td>
       <td><span><?= $pendaftaran[$i]->prodi ?></span></td>
       <td><span><?= $pendaftaran[$i]->nama ?></span></td>
